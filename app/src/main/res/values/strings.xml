@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">StarWarsUniverseApp</string>
+    <string name="input_search_hint">SW Character (e.g. Darth Vader)</string>
+    <string name="search">Search</string>
 </resources>

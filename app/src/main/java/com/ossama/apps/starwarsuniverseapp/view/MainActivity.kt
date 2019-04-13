@@ -1,7 +1,8 @@
-package com.ossama.apps.starwarsuniverseapp
+package com.ossama.apps.starwarsuniverseapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.ossama.apps.starwarsuniverseapp.R
 
 class MainActivity : AppCompatActivity() {
 
