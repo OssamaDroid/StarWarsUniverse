@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="swCharacter"
+            type="com.ossama.apps.starwarsuniverseapp.model.entity.SWCharacter" />
+    </data>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/item_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@{swCharacter.name}"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Luke Skywalker" />
+
+        <TextView
+            android:id="@+id/birth_year"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:paddingTop="16dp"
+            android:text="@{swCharacter.birth_year}"
+            android:textSize="18sp"
+            tools:text="19BBY" />
+
+    </LinearLayout>
+</layout>
