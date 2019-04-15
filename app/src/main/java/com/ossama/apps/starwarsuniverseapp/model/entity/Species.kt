@@ -1,7 +1,5 @@
 package com.ossama.apps.starwarsuniverseapp.model.entity
 
-import com.ossama.apps.starwarsuniverseapp.model.entity.Planet
-
 /**
  * Model for a given Species
  */

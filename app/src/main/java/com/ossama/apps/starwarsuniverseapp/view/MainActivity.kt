@@ -8,9 +8,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.ossama.apps.starwarsuniverseapp.R
 import com.ossama.apps.starwarsuniverseapp.databinding.ActivityMainBinding
+import com.ossama.apps.starwarsuniverseapp.model.entity.SWCharacter
 import com.ossama.apps.starwarsuniverseapp.viewModel.SearchCharacterViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnAction {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = ViewModelProviders.of(this).get(SearchCharacterViewModel::class.java)
         binding.lifecycleOwner = this
 
-        val adapter = SWCharacterAdapter()
+        val adapter = SWCharacterAdapter(this)
         binding.rvCharacters.adapter = adapter
         binding.rvCharacters.setHasFixedSize(true)
         binding.rvCharacters.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
@@ -31,4 +32,16 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun onItemSelected(swCharacter: SWCharacter) {
+
+    }
+
+    private fun showCharacterDetailsScreen() {
+
+    }
+}
+
+interface OnAction {
+    fun onItemSelected(swCharacter: SWCharacter)
 }

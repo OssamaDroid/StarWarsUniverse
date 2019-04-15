@@ -8,7 +8,7 @@ import com.ossama.apps.starwarsuniverseapp.R
 import com.ossama.apps.starwarsuniverseapp.databinding.ItemStarWarsCharacterBinding
 import com.ossama.apps.starwarsuniverseapp.model.entity.SWCharacter
 
-class SWCharacterAdapter : RecyclerView.Adapter<SWCharacterAdapter.SWCharacterViewHolder>() {
+class SWCharacterAdapter(val listener: OnAction) : RecyclerView.Adapter<SWCharacterAdapter.SWCharacterViewHolder>() {
 
     private val swCharacters = mutableListOf<SWCharacter>()
 
@@ -36,6 +36,7 @@ class SWCharacterAdapter : RecyclerView.Adapter<SWCharacterAdapter.SWCharacterVi
 
         fun bind(swCharacter: SWCharacter) {
             binding.swCharacter = swCharacter
+            binding.root.setOnClickListener { listener.onItemSelected(swCharacter) }
             binding.executePendingBindings()
         }
     }
