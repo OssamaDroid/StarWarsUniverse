@@ -5,7 +5,7 @@ package com.ossama.apps.starwarsuniverseapp.model.entity
  */
 
 data class Species(
-    val name: String,
-    val language: String,
-    val homeWorld: Planet
+    val name: String? = null,
+    val language: String? = null,
+    val homeWorld: Planet? = null
 )

@@ -6,11 +6,11 @@ import androidx.databinding.DataBindingUtil.inflate
 import androidx.recyclerview.widget.RecyclerView
 import com.ossama.apps.starwarsuniverseapp.R
 import com.ossama.apps.starwarsuniverseapp.databinding.ItemStarWarsCharacterBinding
-import com.ossama.apps.starwarsuniverseapp.model.entity.SWCharacter
+import com.ossama.apps.starwarsuniverseapp.model.entity.mappingEntity.RemoteSWCharacter
 
 class SWCharacterAdapter(val listener: OnAction) : RecyclerView.Adapter<SWCharacterAdapter.SWCharacterViewHolder>() {
 
-    private val swCharacters = mutableListOf<SWCharacter>()
+    private val swCharacters = mutableListOf<RemoteSWCharacter>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SWCharacterViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -26,7 +26,7 @@ class SWCharacterAdapter(val listener: OnAction) : RecyclerView.Adapter<SWCharac
         holder.bind(swCharacters[position])
     }
 
-    fun updateList(newCharacters: List<SWCharacter>) {
+    fun updateList(newCharacters: List<RemoteSWCharacter>) {
         swCharacters.clear()
         swCharacters.addAll(newCharacters)
         notifyDataSetChanged()
@@ -34,7 +34,7 @@ class SWCharacterAdapter(val listener: OnAction) : RecyclerView.Adapter<SWCharac
 
     inner class SWCharacterViewHolder(private val binding: ItemStarWarsCharacterBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(swCharacter: SWCharacter) {
+        fun bind(swCharacter: RemoteSWCharacter) {
             binding.swCharacter = swCharacter
             binding.root.setOnClickListener { listener.onItemSelected(swCharacter) }
             binding.executePendingBindings()

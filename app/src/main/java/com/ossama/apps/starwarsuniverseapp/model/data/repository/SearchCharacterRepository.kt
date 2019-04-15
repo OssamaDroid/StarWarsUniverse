@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ossama.apps.starwarsuniverseapp.model.data.api.APIClient
 import com.ossama.apps.starwarsuniverseapp.model.data.api.service.DataService
-import com.ossama.apps.starwarsuniverseapp.model.entity.SWCharacter
 import com.ossama.apps.starwarsuniverseapp.model.entity.mappingEntity.SearchResponse
+import com.ossama.apps.starwarsuniverseapp.model.entity.mappingEntity.RemoteSWCharacter
 import com.ossama.apps.starwarsuniverseapp.viewModel.SearchCharacterViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,10 +18,10 @@ class SearchCharacterRepository {
         APIClient.client.create(DataService::class.java)
     }
 
-    fun searchCharacter(name: String) : LiveData<List<SWCharacter>?> {
+    fun searchCharacter(name: String) : LiveData<List<RemoteSWCharacter>?> {
         val call = dataService.searchCharacter(name)
 
-        val result = MutableLiveData<List<SWCharacter>?>()
+        val result = MutableLiveData<List<RemoteSWCharacter>?>()
         call.enqueue(object : Callback<SearchResponse> {
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 Log.e(SearchCharacterViewModel::class.java.simpleName, t.message)
@@ -35,11 +35,8 @@ class SearchCharacterRepository {
                     result.postValue(null)
                     return
                 }
-                val mappedResponse = mutableListOf<SWCharacter>()
-                responseBody.results.forEach {
-                    mappedResponse.add(it.toBaseCharacterInfo())
-                }
-                result.postValue(mappedResponse.toList())
+
+                result.postValue(responseBody.results)
             }
         })
         return result

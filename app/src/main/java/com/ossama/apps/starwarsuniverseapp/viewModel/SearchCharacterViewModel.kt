@@ -5,15 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.ossama.apps.starwarsuniverseapp.BR
 import com.ossama.apps.starwarsuniverseapp.model.data.repository.SearchCharacterRepository
-import com.ossama.apps.starwarsuniverseapp.model.entity.SWCharacter
+import com.ossama.apps.starwarsuniverseapp.model.entity.mappingEntity.RemoteSWCharacter
 
 class SearchCharacterViewModel(private val repository: SearchCharacterRepository = SearchCharacterRepository()) : ObservableViewModel() {
 
     var input = ""
 
-    private val _characters = MediatorLiveData<List<SWCharacter>?>()
+    private val _characters = MediatorLiveData<List<RemoteSWCharacter>?>()
 
-    val characters: LiveData<List<SWCharacter>?> by lazy {
+    val characters: LiveData<List<RemoteSWCharacter>?> by lazy {
         _characters
     }
 

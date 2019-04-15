@@ -1,5 +1,6 @@
 package com.ossama.apps.starwarsuniverseapp.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -8,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.ossama.apps.starwarsuniverseapp.R
 import com.ossama.apps.starwarsuniverseapp.databinding.ActivityMainBinding
-import com.ossama.apps.starwarsuniverseapp.model.entity.SWCharacter
+import com.ossama.apps.starwarsuniverseapp.model.entity.mappingEntity.RemoteSWCharacter
 import com.ossama.apps.starwarsuniverseapp.viewModel.SearchCharacterViewModel
 
 class MainActivity : AppCompatActivity(), OnAction {
@@ -33,15 +34,18 @@ class MainActivity : AppCompatActivity(), OnAction {
         })
     }
 
-    override fun onItemSelected(swCharacter: SWCharacter) {
-
+    override fun onItemSelected(swCharacter: RemoteSWCharacter) {
+        showCharacterDetailsScreen(swCharacter)
     }
 
-    private fun showCharacterDetailsScreen() {
-
+    private fun showCharacterDetailsScreen(swCharacter: RemoteSWCharacter) {
+        val intent = Intent(this, CharacterDetailsActivity::class.java).apply {
+            putExtra("EXTRA_CHARACTER", swCharacter)
+        }
+        startActivity(intent)
     }
 }
 
 interface OnAction {
-    fun onItemSelected(swCharacter: SWCharacter)
+    fun onItemSelected(swCharacter: RemoteSWCharacter)
 }
