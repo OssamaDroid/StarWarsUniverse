@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.ossama.apps.starwarsuniverseapp.R
 import com.ossama.apps.starwarsuniverseapp.databinding.ActivityCharacterDetailsBinding
+import com.ossama.apps.starwarsuniverseapp.model.entity.Film
 import com.ossama.apps.starwarsuniverseapp.model.entity.SWCharacter
 import com.ossama.apps.starwarsuniverseapp.model.entity.mappingEntity.RemoteSWCharacter
 import com.ossama.apps.starwarsuniverseapp.viewModel.CharacterDetailsViewModel
@@ -54,6 +55,17 @@ class CharacterDetailsActivity : AppCompatActivity() {
 
         // HomeWorld population
         binding.textViewPopulation.text = swCharacter.species?.homeWorld?.population
+
+        // Films
+        swCharacter.films?.apply {
+            showListFilms(this)
+        }
+    }
+
+    private fun showListFilms(films: List<Film>) {
+        val adapter = FilmsAdapter(films)
+        binding.rvFilms.adapter = adapter
+        binding.rvFilms.setHasFixedSize(true)
     }
 
     companion object {

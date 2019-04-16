@@ -8,9 +8,9 @@ import java.io.Serializable
  */
 
 data class SWCharacter(
-    var name: String,
-    var birth_year: String,
-    var height: String,
-    var species: Species? = null,
-    var films: List<Film?>? = null
+    val name: String,
+    val birth_year: String,
+    val height: String,
+    val species: Species? = null,
+    val films: List<Film>? = null
 ): Serializable

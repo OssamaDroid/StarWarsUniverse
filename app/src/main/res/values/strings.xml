@@ -11,4 +11,8 @@
     <string name="language">Language</string>
     <string name="homeworld">Homeworld</string>
     <string name="population">Population</string>
+    <string name="films">Films</string>
+    <string name="title">Title</string>
+    <string name="released_date">Released Date</string>
+    <string name="opening_crawl">Opening crawl</string>
 </resources>

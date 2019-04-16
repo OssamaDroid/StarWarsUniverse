@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="film"
+            type="com.ossama.apps.starwarsuniverseapp.model.entity.Film" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:background="@color/white"
+        android:id="@+id/card_view_film"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_margin="16dp"
+        app:contentPadding="16dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="8dp">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/item_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_view_film_title_label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/title"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_view_film_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@{film.title}"
+            android:textSize="18sp"
+            tools:text="A New Hope" />
+
+        <TextView
+            android:id="@+id/text_view_film_released_data_label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/released_date"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_view_film_released_data"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@{film.releaseDate}"
+            android:textSize="18sp"
+            tools:text="1977-05-25" />
+
+        <TextView
+            android:id="@+id/text_view_film_opening_crawl_label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/opening_crawl"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_view_film_released_opening_crawl"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@{film.openingCrawl}"
+            android:textSize="18sp"
+            android:maxLines="4"
+            android:ellipsize="end"
+            tools:text="It is a period of civil war.\n\nRebel spaceships, striking\n\nfrom a hidden base, have won\n\ntheir first victory against\n\nthe evil Galactic Empire.\n\n\n\nDuring the battle, Rebel\n\nspies managed to steal secret\r\nplans to the Empire's\n\nultimate weapon, the DEATH\n\nSTAR, an armored space\n\nstation with enough power\n\nto destroy an entire planet.\n\n\n\nPursued by the Empire's\n\nsinister agents, Princess\n\nLeia races home aboard her\n\nstarship, custodian of the\n\nstolen plans that can save her\n\npeople and restore\n\nfreedom to the galaxy...." />
+
+    </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
