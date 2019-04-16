@@ -34,7 +34,26 @@ class CharacterDetailsActivity : AppCompatActivity() {
     }
 
     private fun updateData(swCharacter: SWCharacter) {
-        binding.film.text = swCharacter.films!![0]!!.title
+        // Name
+        binding.textViewName.text = swCharacter.name
+
+        // Birth year
+        binding.textViewBirthYear.text = swCharacter.birth_year
+
+        // Height
+        binding.textViewHeight.text = swCharacter.height
+
+        // Species Name
+        binding.textViewSpeciesName.text = swCharacter.species?.name
+
+        // Species Language
+        binding.textViewLanguage.text = swCharacter.species?.language
+
+        // HomeWorld name
+        binding.textViewHomeWorldName.text = swCharacter.species?.homeWorld?.name
+
+        // HomeWorld population
+        binding.textViewPopulation.text = swCharacter.species?.homeWorld?.population
     }
 
     companion object {

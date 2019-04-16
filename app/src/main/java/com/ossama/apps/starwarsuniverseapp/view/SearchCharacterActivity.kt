@@ -8,14 +8,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.ossama.apps.starwarsuniverseapp.R
-import com.ossama.apps.starwarsuniverseapp.databinding.ActivityMainBinding
+import com.ossama.apps.starwarsuniverseapp.databinding.ActivitySearchCharacterBinding
 import com.ossama.apps.starwarsuniverseapp.model.entity.mappingEntity.RemoteSWCharacter
 import com.ossama.apps.starwarsuniverseapp.view.CharacterDetailsActivity.Companion.INTENT_EXTRAS_SW_CHARACTER
 import com.ossama.apps.starwarsuniverseapp.viewModel.SearchCharacterViewModel
 
 class MainActivity : AppCompatActivity(), OnAction {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivitySearchCharacterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
