@@ -22,9 +22,9 @@ class CharacterDetailsActivity : AppCompatActivity() {
         binding.viewModel = ViewModelProviders.of(this).get(CharacterDetailsViewModel::class.java)
         binding.lifecycleOwner = this
 
-        val swCharacter = intent?.extras?.getSerializable("EXTRA_CHARACTER") as RemoteSWCharacter
+        val swCharacter = intent?.extras?.getSerializable(INTENT_EXTRAS_SW_CHARACTER) as RemoteSWCharacter
 
-        binding.viewModel!!.setup(swCharacter)
+        binding.viewModel!!.setupObservers(swCharacter)
 
         binding.viewModel?.character?.observe(this, Observer {
             if (it != null) {
@@ -35,5 +35,9 @@ class CharacterDetailsActivity : AppCompatActivity() {
 
     private fun updateData(swCharacter: SWCharacter) {
         binding.film.text = swCharacter.films!![0]!!.title
+    }
+
+    companion object {
+        const val INTENT_EXTRAS_SW_CHARACTER = "intent.extras.sw.character"
     }
 }

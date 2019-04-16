@@ -1,5 +1,6 @@
 package com.ossama.apps.starwarsuniverseapp.model.entity
 
+
 /**
  * Model for a given Species
  */

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.ossama.apps.starwarsuniverseapp.R
 import com.ossama.apps.starwarsuniverseapp.databinding.ActivityMainBinding
 import com.ossama.apps.starwarsuniverseapp.model.entity.mappingEntity.RemoteSWCharacter
+import com.ossama.apps.starwarsuniverseapp.view.CharacterDetailsActivity.Companion.INTENT_EXTRAS_SW_CHARACTER
 import com.ossama.apps.starwarsuniverseapp.viewModel.SearchCharacterViewModel
 
 class MainActivity : AppCompatActivity(), OnAction {
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity(), OnAction {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_search_character)
         binding.viewModel = ViewModelProviders.of(this).get(SearchCharacterViewModel::class.java)
         binding.lifecycleOwner = this
 
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity(), OnAction {
 
     private fun showCharacterDetailsScreen(swCharacter: RemoteSWCharacter) {
         val intent = Intent(this, CharacterDetailsActivity::class.java).apply {
-            putExtra("EXTRA_CHARACTER", swCharacter)
+            putExtra(INTENT_EXTRAS_SW_CHARACTER, swCharacter)
         }
         startActivity(intent)
     }

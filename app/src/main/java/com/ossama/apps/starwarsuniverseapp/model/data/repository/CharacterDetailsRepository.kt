@@ -12,13 +12,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CharacterDetailsRepository {
+class CharacterDetailsRepository : ICharacterDetailsRepository {
 
     private val dataService by lazy {
         APIClient.client.create(DataService::class.java)
     }
 
-    fun fetchFilm(id: String) : LiveData<Film?> {
+    override fun fetchFilm(id: String) : LiveData<Film?> {
         val call = dataService.fetchFilm(id)
 
         val result = MutableLiveData<Film?>()
@@ -42,7 +42,7 @@ class CharacterDetailsRepository {
         return result
     }
 
-    fun fetchPlanet(id: String) : LiveData<Planet?> {
+    override fun fetchPlanet(id: String) : LiveData<Planet?> {
         val call = dataService.fetchPlanet(id)
 
         val result = MutableLiveData<Planet?>()
@@ -66,7 +66,7 @@ class CharacterDetailsRepository {
         return result
     }
 
-    fun fetchSpecies(id: String) : LiveData<_Species?> {
+    override fun fetchSpecies(id: String) : LiveData<_Species?> {
         val call = dataService.fetchSpecies(id)
 
         val result = MutableLiveData<_Species?>()

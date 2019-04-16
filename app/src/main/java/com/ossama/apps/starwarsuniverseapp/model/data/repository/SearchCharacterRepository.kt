@@ -12,13 +12,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SearchCharacterRepository {
+class SearchCharacterRepository : ISearchCharacterRepository {
 
     private val dataService by lazy {
         APIClient.client.create(DataService::class.java)
     }
 
-    fun searchCharacter(name: String) : LiveData<List<RemoteSWCharacter>?> {
+    override fun searchCharacter(name: String) : LiveData<List<RemoteSWCharacter>?> {
         val call = dataService.searchCharacter(name)
 
         val result = MutableLiveData<List<RemoteSWCharacter>?>()
