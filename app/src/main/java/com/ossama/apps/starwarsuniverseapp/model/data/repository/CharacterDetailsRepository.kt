@@ -7,7 +7,7 @@ import com.ossama.apps.starwarsuniverseapp.model.data.api.APIClient
 import com.ossama.apps.starwarsuniverseapp.model.data.api.service.DataService
 import com.ossama.apps.starwarsuniverseapp.model.entity.Film
 import com.ossama.apps.starwarsuniverseapp.model.entity.Planet
-import com.ossama.apps.starwarsuniverseapp.model.entity.mappingEntity._Species
+import com.ossama.apps.starwarsuniverseapp.model.entity.mappingEntity.RemoteSpecies
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -66,17 +66,17 @@ class CharacterDetailsRepository : ICharacterDetailsRepository {
         return result
     }
 
-    override fun fetchSpecies(id: String) : LiveData<_Species?> {
+    override fun fetchSpecies(id: String) : LiveData<RemoteSpecies?> {
         val call = dataService.fetchSpecies(id)
 
-        val result = MutableLiveData<_Species?>()
-        call.enqueue(object : Callback<_Species> {
-            override fun onFailure(call: Call<_Species>, t: Throwable) {
+        val result = MutableLiveData<RemoteSpecies?>()
+        call.enqueue(object : Callback<RemoteSpecies> {
+            override fun onFailure(call: Call<RemoteSpecies>, t: Throwable) {
                 Log.e(CharacterDetailsRepository::class.java.simpleName, t.message)
                 result.postValue(null)
             }
 
-            override fun onResponse(call: Call<_Species>, response: Response<_Species>) {
+            override fun onResponse(call: Call<RemoteSpecies>, response: Response<RemoteSpecies>) {
                 val responseBody = response.body()
 
                 if (responseBody == null) {

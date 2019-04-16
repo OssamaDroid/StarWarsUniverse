@@ -4,10 +4,11 @@ import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.ossama.apps.starwarsuniverseapp.BR
+import com.ossama.apps.starwarsuniverseapp.model.data.repository.ISearchCharacterRepository
 import com.ossama.apps.starwarsuniverseapp.model.data.repository.SearchCharacterRepository
 import com.ossama.apps.starwarsuniverseapp.model.entity.mappingEntity.RemoteSWCharacter
 
-class SearchCharacterViewModel(private val repository: SearchCharacterRepository = SearchCharacterRepository()) : ObservableViewModel() {
+class SearchCharacterViewModel(private val repository: ISearchCharacterRepository = SearchCharacterRepository()) : ObservableViewModel() {
 
     var input = ""
 
@@ -22,11 +23,13 @@ class SearchCharacterViewModel(private val repository: SearchCharacterRepository
 
     fun search() {
         if (input.isNotBlank()) {
-            val liveData = repository.searchCharacter(input)
-            _characters.addSource(liveData) {
+            val swCharacterLiveData = repository.searchCharacter(input)
+            _characters.addSource(swCharacterLiveData) {
                 _characters.value = it
+                _characters.removeSource(swCharacterLiveData)
+
+                // Notifying the recycler view to update its visibility when new values are emitted
                 notifyPropertyChanged(BR.listVisible)
-                _characters.removeSource(liveData)
             }
         }
     }

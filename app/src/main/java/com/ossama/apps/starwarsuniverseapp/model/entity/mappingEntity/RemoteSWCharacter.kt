@@ -4,7 +4,7 @@ import com.ossama.apps.starwarsuniverseapp.model.entity.SWCharacter
 import java.io.Serializable
 
 /**
- * Model used only for mapping the results coming from the service
+ * Model used only for mapping the Star war character data coming from the web service
  */
 
 data class RemoteSWCharacter(

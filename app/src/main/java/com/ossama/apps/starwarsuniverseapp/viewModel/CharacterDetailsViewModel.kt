@@ -3,13 +3,14 @@ package com.ossama.apps.starwarsuniverseapp.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.ossama.apps.starwarsuniverseapp.model.data.repository.CharacterDetailsRepository
+import com.ossama.apps.starwarsuniverseapp.model.data.repository.ICharacterDetailsRepository
 import com.ossama.apps.starwarsuniverseapp.model.entity.Film
 import com.ossama.apps.starwarsuniverseapp.model.entity.SWCharacter
 import com.ossama.apps.starwarsuniverseapp.model.entity.Species
 import com.ossama.apps.starwarsuniverseapp.model.entity.mappingEntity.RemoteSWCharacter
 import com.ossama.apps.starwarsuniverseapp.util.retrieveId
 
-class CharacterDetailsViewModel(private val repository: CharacterDetailsRepository = CharacterDetailsRepository()) :
+class CharacterDetailsViewModel(private val repository: ICharacterDetailsRepository = CharacterDetailsRepository()) :
     ObservableViewModel() {
 
     private val _character = MediatorLiveData<SWCharacter?>()
@@ -23,10 +24,11 @@ class CharacterDetailsViewModel(private val repository: CharacterDetailsReposito
     }
 
     fun setupObservers(remoteSWCharacter: RemoteSWCharacter) {
+        // setup the observer for watching the emitted films data
         val listFilms = mutableListOf<Film>()
         remoteSWCharacter.films.forEach { film ->
-            val liveData = repository.fetchFilm(film.retrieveId())
-            _films.addSource(liveData) {
+            val filmsLiveData = repository.fetchFilm(film.retrieveId())
+            _films.addSource(filmsLiveData) {
                 if (it != null) {
                     listFilms.add(it)
                     _films.value = listFilms.toList()
@@ -35,13 +37,14 @@ class CharacterDetailsViewModel(private val repository: CharacterDetailsReposito
         }
 
         remoteSWCharacter.species.takeIf { it.isNotEmpty() }?.take(1)?.forEach {
-            val liveData = repository.fetchSpecies(it.retrieveId())
-            _species.addSource(liveData) { species ->
+            // setup the observer for watching the emitted species and planet data
+            val speciesLiveData = repository.fetchSpecies(it.retrieveId())
+            _species.addSource(speciesLiveData) { species ->
                 if (species != null) {
                     _species.value = species.toSpecies()
 
-                    val liveData2 = repository.fetchPlanet(it.retrieveId())
-                    _species.addSource(liveData2) { planet ->
+                    val planetLiveData = repository.fetchPlanet(it.retrieveId())
+                    _species.addSource(planetLiveData) { planet ->
                         if (planet != null) {
                             val speciesValue = _species.value?.copy(homeWorld = planet)
                             _species.value = speciesValue
@@ -51,10 +54,13 @@ class CharacterDetailsViewModel(private val repository: CharacterDetailsReposito
             }
         }
 
-        setupSWCharacterObserver(remoteSWCharacter)
+        setupSWCharacterObservers(remoteSWCharacter)
     }
 
-    private fun setupSWCharacterObserver(remoteSWCharacter: RemoteSWCharacter) {
+    /**
+     * Setup the observers to update the character live data when new films and/or species are emitted data
+     */
+    private fun setupSWCharacterObservers(remoteSWCharacter: RemoteSWCharacter) {
         _character.addSource(_films) {
             _character.value =
                 if (_character.value == null) remoteSWCharacter.toSWCharacter().copy(films = it)
