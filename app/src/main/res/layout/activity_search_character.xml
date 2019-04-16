@@ -15,10 +15,9 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/background_color"
+        android:background="@color/white"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:padding="16dp"
         tools:context=".view.MainActivity">
 
         <ImageView
@@ -34,7 +33,9 @@
             android:background="@color/white"
             android:id="@+id/card_view_search"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_width="match_parent"
             app:cardCornerRadius="4dp"
             app:cardElevation="8dp"
@@ -46,11 +47,12 @@
             <LinearLayout
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
+                    android:layout_weight="1"
+                    android:layout_width="0dp">
 
                     <EditText
                         android:hint="@string/input_search_hint"
@@ -63,16 +65,15 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:background="@color/colorPrimary"
+                <ImageView
                     android:gravity="center"
-                    android:id="@+id/button_search"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/image_search"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="40dp"
+                    android:layout_width="40dp"
+                    android:src="@drawable/ic_search"
                     android:onClick="@{() -> viewModel.search()}"
-                    android:text="@string/search"
+                    android:contentDescription="@string/search"
                     android:textColor="@color/white" />
 
             </LinearLayout>
@@ -93,6 +94,16 @@
             app:layout_constraintTop_toBottomOf="@id/card_view_search"
             tools:listitem="@layout/item_star_wars_character"
             tools:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.isProgressBarVisible ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

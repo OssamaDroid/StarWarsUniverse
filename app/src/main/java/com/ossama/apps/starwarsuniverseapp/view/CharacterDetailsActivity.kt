@@ -58,11 +58,11 @@ class CharacterDetailsActivity : AppCompatActivity() {
 
         // Films
         swCharacter.films?.apply {
-            showListFilms(this)
+            showFilms(this)
         }
     }
 
-    private fun showListFilms(films: List<Film>) {
+    private fun showFilms(films: List<Film>) {
         val adapter = FilmsAdapter(films)
         binding.rvFilms.adapter = adapter
         binding.rvFilms.setHasFixedSize(true)

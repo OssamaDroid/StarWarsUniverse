@@ -3,6 +3,7 @@ package com.ossama.apps.starwarsuniverseapp.viewModel
 import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import com.ossama.apps.starwarsuniverseapp.BR
 import com.ossama.apps.starwarsuniverseapp.model.data.repository.ISearchCharacterRepository
 import com.ossama.apps.starwarsuniverseapp.model.data.repository.SearchCharacterRepository
@@ -21,8 +22,15 @@ class SearchCharacterViewModel(private val repository: ISearchCharacterRepositor
     val isListVisible: Boolean
         @Bindable get() = characters.value?.isNotEmpty() ?: false
 
+    private var isProgressBarVisibleLiveData = MutableLiveData<Boolean>()
+
+    val isProgressBarVisible: Boolean
+        @Bindable get() = isProgressBarVisibleLiveData.value ?: false
+
     fun search() {
         if (input.isNotBlank()) {
+            changeProgressBarVisibility(isVisible = true)
+
             val swCharacterLiveData = repository.searchCharacter(input)
             _characters.addSource(swCharacterLiveData) {
                 _characters.value = it
@@ -30,7 +38,16 @@ class SearchCharacterViewModel(private val repository: ISearchCharacterRepositor
 
                 // Notifying the recycler view to update its visibility when new values are emitted
                 notifyPropertyChanged(BR.listVisible)
+
+                changeProgressBarVisibility(isVisible = false)
             }
         }
+    }
+
+    private fun changeProgressBarVisibility(isVisible: Boolean) {
+        isProgressBarVisibleLiveData.value = isVisible
+
+        // Notifying the progress bar to update its visibility
+        notifyPropertyChanged(BR.progressBarVisible)
     }
 }
