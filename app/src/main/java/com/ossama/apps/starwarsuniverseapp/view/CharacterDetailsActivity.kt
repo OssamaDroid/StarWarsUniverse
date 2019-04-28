@@ -17,17 +17,18 @@ class CharacterDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCharacterDetailsBinding
 
+    private var viewModel: CharacterDetailsViewModel? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_character_details)
-        binding.viewModel = ViewModelProviders.of(this).get(CharacterDetailsViewModel::class.java)
-        binding.lifecycleOwner = this
+        viewModel = ViewModelProviders.of(this).get(CharacterDetailsViewModel::class.java)
 
         val swCharacter = intent?.extras?.getSerializable(INTENT_EXTRAS_SW_CHARACTER) as RemoteSWCharacter
 
-        binding.viewModel!!.setupObservers(swCharacter)
+        viewModel?.setupObservers(swCharacter)
 
-        binding.viewModel?.character?.observe(this, Observer {
+        viewModel?.character?.observe(this, Observer {
             if (it != null) {
                 updateData(it)
             }
@@ -35,26 +36,8 @@ class CharacterDetailsActivity : AppCompatActivity() {
     }
 
     private fun updateData(swCharacter: SWCharacter) {
-        // Name
-        binding.textViewName.text = swCharacter.name
-
-        // Birth year
-        binding.textViewBirthYear.text = swCharacter.birth_year
-
-        // Height
-        binding.textViewHeight.text = swCharacter.height
-
-        // Species Name
-        binding.textViewSpeciesName.text = swCharacter.species?.name
-
-        // Species Language
-        binding.textViewLanguage.text = swCharacter.species?.language
-
-        // HomeWorld name
-        binding.textViewHomeWorldName.text = swCharacter.species?.homeWorld?.name
-
-        // HomeWorld population
-        binding.textViewPopulation.text = swCharacter.species?.homeWorld?.population
+        // Star Wars Character's data
+        binding.swCharacter = swCharacter
 
         // Films
         swCharacter.films?.apply {

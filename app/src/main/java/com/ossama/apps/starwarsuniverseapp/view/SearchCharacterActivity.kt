@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity(), OnAction {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search_character)
         binding.viewModel = ViewModelProviders.of(this).get(SearchCharacterViewModel::class.java)
-        binding.lifecycleOwner = this
 
         val adapter = SWCharacterAdapter(this)
         binding.rvCharacters.adapter = adapter
